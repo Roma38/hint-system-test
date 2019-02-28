@@ -11,8 +11,14 @@
   align-self: center;
 }
 
+.avatar-placeholder {
+  height: 35px;
+  width: 35px;
+  border-radius: 50%;
+}
+
 .main-container {
-  margin-top: 40px;
+  padding-top: 40px;
 }
 
 .search-input {

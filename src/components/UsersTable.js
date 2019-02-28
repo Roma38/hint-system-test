@@ -56,111 +56,119 @@ class UsersTableComponent extends Component {
 
           <Table.Body>
             {this.props.users.requestState === "loading" &&
-              Array(+NUMBER_OF_USERS)
-                .fill(null)
-                .map((item, index) => <TableRowPlaceholder key={index} />)}
+              [...Array(+NUMBER_OF_USERS)].map((item, index) => (
+                <TableRowPlaceholder key={index} index={index} />
+              ))}
 
-            {this.props.users.requestState === "succeed" && (filtredUsers.length ? (
-              filtredUsers.map((
-                user,
-                index /*в качестве key я использовал бы user.id, но у некоторых юзеров он почему-то равен null, по этому я взял user.phone */
-              ) => (
-                <React.Fragment key={user.phone}>
-                  <Table.Row
-                    className={index % 2 === 1 ? "odd-row" : undefined}
-                    onClick={() =>
-                      this.setState({
-                        chosenUser:
-                          this.state.chosenUser === index ? null : index
-                      })
-                    }
-                  >
-                    <Table.Cell>
-                      <Image
-                        src={user.picture.thumbnail}
-                        circular
-                        size="mini"
-                      />
-                    </Table.Cell>
-                    <Table.Cell>{user.name.last}</Table.Cell>
-                    <Table.Cell>{user.name.first}</Table.Cell>
-                    <Table.Cell>{user.login.username}</Table.Cell>
-                    <Table.Cell>{user.phone}</Table.Cell>
-                    <Table.Cell>{user.location.state}</Table.Cell>
-                    <Table.Cell>
-                      <Icon
-                        name={
-                          this.state.chosenUser === index ? "minus" : "plus"
-                        }
-                        size="big"
-                        color="grey"
-                      />
-                    </Table.Cell>
-                  </Table.Row>
-                  {this.state.chosenUser === index && (
+            {this.props.users.requestState === "succeed" &&
+              (filtredUsers.length ? (
+                filtredUsers.map((
+                  user,
+                  index /*в качестве key я использовал бы user.id, но у некоторых юзеров он почему-то равен null, по этому я взял user.phone */
+                ) => (
+                  <React.Fragment key={user.phone}>
                     <Table.Row
                       className={index % 2 === 1 ? "odd-row" : undefined}
+                      onClick={() =>
+                        this.setState({
+                          chosenUser:
+                            this.state.chosenUser === index ? null : index
+                        })
+                      }
                     >
-                      <Table.Cell colSpan={7}>
-                        <Header textAlign="center" size="huge">
-                          {user.name.first} {user.name.last}
-                          <Icon name={user.gender} />
-                        </Header>
-                        <div className="user-info">
-                          <List>
-                            <List.Item>
-                              <b>Username: </b>
-                              {user.login.username}
-                            </List.Item>
-                            <List.Item>
-                              <b>Registered date: </b>
-                              {new Date(user.registered.date).toDateString()}
-                            </List.Item>
-                            <List.Item>
-                              <b>Email: </b>
-                              {user.email}
-                            </List.Item>
-                            <List.Item>
-                              <b>Location: </b>
-                              {user.location.street}
-                            </List.Item>
-                            <List.Item>
-                              <b>Birthday: </b>
-                              {new Date(user.dob.date).toDateString()}
-                            </List.Item>
-                            <List.Item>
-                              <b>Phone: </b>
-                              {user.phone}
-                            </List.Item>
-                            <List.Item>
-                              <b>Cell: </b>
-                              {user.cell}
-                            </List.Item>
-                          </List>
-                          <Image
-                            className="user-picture"
-                            src={user.picture.large}
-                            circular
-                          />
-                        </div>
+                      <Table.Cell>
+                        <Image
+                          src={user.picture.thumbnail}
+                          circular
+                          size="mini"
+                        />
+                      </Table.Cell>
+                      <Table.Cell>{user.name.last}</Table.Cell>
+                      <Table.Cell>{user.name.first}</Table.Cell>
+                      <Table.Cell>{user.login.username}</Table.Cell>
+                      <Table.Cell>{user.phone}</Table.Cell>
+                      <Table.Cell>{user.location.state}</Table.Cell>
+                      <Table.Cell>
+                        <Icon
+                          name={
+                            this.state.chosenUser === index ? "minus" : "plus"
+                          }
+                          size="big"
+                          color="grey"
+                        />
                       </Table.Cell>
                     </Table.Row>
-                  )}
-                </React.Fragment>
-              ))
-            ) : (
+                    {this.state.chosenUser === index && (
+                      <Table.Row
+                        className={index % 2 === 1 ? "odd-row" : undefined}
+                      >
+                        <Table.Cell colSpan={7}>
+                          <Header textAlign="center" size="huge">
+                            {user.name.first} {user.name.last}
+                            <Icon name={user.gender} />
+                          </Header>
+                          <div className="user-info">
+                            <List>
+                              <List.Item>
+                                <b>Username: </b>
+                                {user.login.username}
+                              </List.Item>
+                              <List.Item>
+                                <b>Registered date: </b>
+                                {new Date(user.registered.date).toDateString()}
+                              </List.Item>
+                              <List.Item>
+                                <b>Email: </b>
+                                {user.email}
+                              </List.Item>
+                              <List.Item>
+                                <b>Location: </b>
+                                {user.location.street}
+                              </List.Item>
+                              <List.Item>
+                                <b>Birthday: </b>
+                                {new Date(user.dob.date).toDateString()}
+                              </List.Item>
+                              <List.Item>
+                                <b>Phone: </b>
+                                {user.phone}
+                              </List.Item>
+                              <List.Item>
+                                <b>Cell: </b>
+                                {user.cell}
+                              </List.Item>
+                            </List>
+                            <Image
+                              className="user-picture"
+                              src={user.picture.large}
+                              circular
+                            />
+                          </div>
+                        </Table.Cell>
+                      </Table.Row>
+                    )}
+                  </React.Fragment>
+                ))
+              ) : (
+                <Table.Row>
+                  <Table.Cell colSpan={7}>
+                    <Header content="Noone found :(" textAlign="center" />
+                  </Table.Cell>
+                </Table.Row>
+              ))}
+
+            {this.props.users.requestState === "error" && (
               <Table.Row>
                 <Table.Cell colSpan={7}>
-                  <Header content="Noone found :(" textAlign="center" />
+                  <Header
+                    content="Oops... something went wrong :("
+                    size="huge"
+                    color="red"
+                    textAlign="center"
+                  />
                 </Table.Cell>
               </Table.Row>
-            ))}
-
-            {this.props.users.requestState === "error" && <Table.Row>
-              <Table.Cell colSpan={7}>
-                <Header content="Oops... something went wrong :(" size="huge" color="red" textAlign="center" />
-              </Table.Cell>
-            </Table.Row>}
+            )}
           </Table.Body>
         </Table>
       </>

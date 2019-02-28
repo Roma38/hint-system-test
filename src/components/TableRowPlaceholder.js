@@ -1,31 +1,32 @@
-import React, { Component } from "react";
-import { Table, Placeholder } from "semantic-ui-react";
+import React from "react";
+import { Table, Placeholder, Icon } from "semantic-ui-react";
 
 const PlaceholderLine = () => (
   <Table.Cell>
     <Placeholder>
-      <Placeholder.Line length="short" />
+      <Placeholder.Line length="full" style={{ background: "none" }} />
     </Placeholder>
   </Table.Cell>
 );
 
-class TableRowPlaceholder extends Component {
-  render() {
-    return (
-      <Table.Row>
-        <Table.Cell>
-          <Placeholder style={{ height: 35, width: 35 }}>
-            <Placeholder.Image />
-          </Placeholder>
-        </Table.Cell>
-        <PlaceholderLine />
-        <PlaceholderLine />
-        <PlaceholderLine />
-        <PlaceholderLine />
-        <PlaceholderLine />
-      </Table.Row>
-    );
-  }
+function TableRowPlaceholder({ index }) {
+  return (
+    <Table.Row className={index % 2 === 1 ? "odd-row" : undefined}>
+      <Table.Cell>
+        <Placeholder className="avatar-placeholder">
+          <Placeholder.Image />
+        </Placeholder>
+      </Table.Cell>
+      <PlaceholderLine />
+      <PlaceholderLine />
+      <PlaceholderLine />
+      <PlaceholderLine />
+      <PlaceholderLine />
+      <Table.Cell>
+        <Icon name="plus" size="big" color="grey" />
+      </Table.Cell>
+    </Table.Row>
+  );
 }
 
 export default TableRowPlaceholder;
