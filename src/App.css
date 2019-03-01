@@ -9,12 +9,14 @@
 
 .user-picture {
   align-self: center;
+  box-shadow: 0px 0px 12px 3px rgba(0,0,0,0.5);
 }
 
 .avatar-placeholder {
   height: 35px;
   width: 35px;
   border-radius: 50%;
+
 }
 
 .main-container {
@@ -24,4 +26,9 @@
 .search-input {
   margin-bottom: 40px;
   margin-left: 30px;
+}
+
+.avatar-picture, .avatar-placeholder {
+  border: 2px solid white;
+  margin-left: 15px;
 }
