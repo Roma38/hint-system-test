@@ -1,34 +1,53 @@
-import React from "react";
-import { Table, Icon, Image } from "semantic-ui-react";
+import React, { Component } from "react";
+import { Table, Loader, Image } from "semantic-ui-react";
+import axios from "axios";
 
-function TableRow({ index, user, chosenUser, handleClick }) {
-  return (
-    <Table.Row
-      className={index % 2 === 1 ? "odd-row" : undefined}
-      onClick={handleClick}
-    >
-      <Table.Cell>
-        <Image
-          src={user.picture.thumbnail}
-          circular
-          size="mini"
-          className="avatar-picture"
-        />
-      </Table.Cell>
-      <Table.Cell>{user.name.last}</Table.Cell>
-      <Table.Cell>{user.name.first}</Table.Cell>
-      <Table.Cell>{user.login.username}</Table.Cell>
-      <Table.Cell>{user.phone}</Table.Cell>
-      <Table.Cell>{user.location.state}</Table.Cell>
-      <Table.Cell>
-        <Icon
-          name={chosenUser === index ? "minus" : "plus"}
-          size="big"
-          color="grey"
-        />
-      </Table.Cell>
-    </Table.Row>
-  );
+class TableRow extends Component {
+  state = { starsAmount: null };
+
+  componentDidMount() {
+    axios
+      .get(this.props.user.repos_url)
+      .then(({ data }) => {
+        let stars = 0;
+        data.forEach(element => {
+          stars += element.stargazers_count;
+        });
+        this.setState({ starsAmount: stars });
+      })
+      .catch(error => {
+        this.setState({ starsAmount: "Can't load data :(" });
+        //console.log(error);
+      });
+  }
+
+  render() {
+    const { user } = this.props;
+    return (
+      <Table.Row>
+        <Table.Cell>
+          <Image
+            src={user.avatar_url}
+            circular
+            size="mini"
+            className="avatar-picture"
+          />
+        </Table.Cell>
+        <Table.Cell>
+          <a href={`https://github.com/${user.login}`} target="_blank">
+            {user.login}
+          </a>
+        </Table.Cell>
+        <Table.Cell>
+          {this.state.starsAmount === null ? (
+            <Loader active inline />
+          ) : (
+            this.state.starsAmount
+          )}
+        </Table.Cell>
+      </Table.Row>
+    );
+  }
 }
 
 export default TableRow;

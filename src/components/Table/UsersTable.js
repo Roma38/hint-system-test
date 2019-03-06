@@ -3,16 +3,12 @@ import { Table } from "semantic-ui-react";
 
 function UsersTable({ children }) {
   return (
-    <Table basic="very" unstackable>
+    <Table basic="very" unstackable striped>
       <Table.Header>
         <Table.Row>
           <Table.HeaderCell />
-          <Table.HeaderCell>Last</Table.HeaderCell>
-          <Table.HeaderCell>First</Table.HeaderCell>
-          <Table.HeaderCell>Username</Table.HeaderCell>
-          <Table.HeaderCell>Phone</Table.HeaderCell>
-          <Table.HeaderCell>Location</Table.HeaderCell>
-          <Table.HeaderCell />
+          <Table.HeaderCell>Name</Table.HeaderCell>
+          <Table.HeaderCell>Total stars</Table.HeaderCell>
         </Table.Row>
       </Table.Header>
       {children}

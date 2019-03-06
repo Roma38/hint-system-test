@@ -1,5 +1,5 @@
 import React from "react";
-import { Table, Placeholder, Icon } from "semantic-ui-react";
+import { Table, Placeholder } from "semantic-ui-react";
 
 const PlaceholderLine = () => (
   <Table.Cell>
@@ -9,9 +9,9 @@ const PlaceholderLine = () => (
   </Table.Cell>
 );
 
-function TableRowPlaceholder({ index }) {
+function TableRowPlaceholder() {
   return (
-    <Table.Row className={index % 2 === 1 ? "odd-row" : undefined}>
+    <Table.Row>
       <Table.Cell>
         <Placeholder className="avatar-placeholder">
           <Placeholder.Image />
@@ -19,12 +19,6 @@ function TableRowPlaceholder({ index }) {
       </Table.Cell>
       <PlaceholderLine />
       <PlaceholderLine />
-      <PlaceholderLine />
-      <PlaceholderLine />
-      <PlaceholderLine />
-      <Table.Cell>
-        <Icon name="plus" size="big" color="grey" />
-      </Table.Cell>
     </Table.Row>
   );
 }
