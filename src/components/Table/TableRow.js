@@ -1,6 +1,12 @@
 import React, { Component } from "react";
 import { Table, Loader, Image } from "semantic-ui-react";
 import axios from "axios";
+import styled from "styled-components";
+
+const StyledImage = styled(Image)`
+  border: 2px solid white;
+  margin-left: 15px;
+`;
 
 class TableRow extends Component {
   state = { starsAmount: null };
@@ -15,10 +21,7 @@ class TableRow extends Component {
         });
         this.setState({ starsAmount: stars });
       })
-      .catch(error => {
-        this.setState({ starsAmount: "Can't load data :(" });
-        //console.log(error);
-      });
+      .catch(() => this.setState({ starsAmount: "Can't load data :(" }));
   }
 
   render() {
@@ -26,15 +29,14 @@ class TableRow extends Component {
     return (
       <Table.Row>
         <Table.Cell>
-          <Image
-            src={user.avatar_url}
-            circular
-            size="mini"
-            className="avatar-picture"
-          />
+          <StyledImage src={user.avatar_url} circular size="mini" />
         </Table.Cell>
         <Table.Cell>
-          <a href={`https://github.com/${user.login}`} target="_blank">
+          <a
+            href={`https://github.com/${user.login}`}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
             {user.login}
           </a>
         </Table.Cell>

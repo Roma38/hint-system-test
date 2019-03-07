@@ -22,7 +22,6 @@ export const getUsers = url => dispatch => {
     .get(url)
     .then(({ data }) => {
       data.items.length = NUMBER_OF_USERS;
-      console.log(data.items);
       dispatch(usersLoadSucceed(data.items));
     })
     .catch(() => dispatch(usersLoadFailed()));

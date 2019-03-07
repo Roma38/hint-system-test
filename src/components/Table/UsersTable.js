@@ -3,7 +3,7 @@ import { Table } from "semantic-ui-react";
 
 function UsersTable({ children }) {
   return (
-    <Table basic="very" unstackable striped>
+    <Table striped collapsing unstackable>
       <Table.Header>
         <Table.Row>
           <Table.HeaderCell />

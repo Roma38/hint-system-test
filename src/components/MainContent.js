@@ -6,6 +6,12 @@ import { getUsers } from "../redux/actions/users";
 import TableRowPlaceholder from "./Table/TableRowPlaceholder";
 import TableRow from "./Table/TableRow";
 import UsersTable from "./Table/UsersTable";
+import styled from "styled-components";
+
+const StyledInput = styled(Input)`
+  margin-bottom: 40px;
+`;
+
 
 class MainContentComponent extends Component {
   state = { searchQuery: "" };
@@ -26,11 +32,10 @@ class MainContentComponent extends Component {
     );
     return (
       <>
-        <Input
+        <StyledInput
           onChange={this.handleChange}
           icon={{ name: "search", circular: true, link: true }}
           placeholder="Search..."
-          className="search-input"
         />
         <UsersTable>
           <Table.Body>
@@ -54,7 +59,7 @@ class MainContentComponent extends Component {
 
             {this.props.users.requestState === "error" && (
               <Table.Row>
-                <Table.Cell colSpan={7}>
+                <Table.Cell colSpan={3}>
                   <Header
                     content="Oops... something went wrong :("
                     size="huge"
